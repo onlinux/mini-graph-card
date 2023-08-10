@@ -124,7 +124,7 @@ properties of the Entity object detailed in the following table (as per `sensor.
 | Name | Type | Default | Description |
 |------|:----:|:-------:|-------------|
 | entity ***(required)*** | string |  | Entity id of the sensor.
-| attribute | string | | Retrieves an attribute instead of the state
+| attribute | string | | Retrieves an attribute or sub-attribute (attr1.attr2...) instead of the state
 | name | string |  | Set a custom display name, defaults to entity's friendly_name.
 | color | string |  | Set a custom color, overrides all other color options including thresholds.
 | unit | string |  | Set a custom unit of measurement, overrides `unit` set in base config.
@@ -487,6 +487,37 @@ state_map:
   - value: "on"
     label: Detected
 ```
+
+#### Showing additional info on the card
+
+![изображение](https://user-images.githubusercontent.com/71872483/170584118-ef826b60-dce3-42ec-a005-0f467616cd37.png)
+
+It is possible to show a state without displaying a graph for a sensor.
+Imagine there are two CO-2 sensors & one humidity sensor; graphs are displayed for the CO-2 only, and the humidity is shown as a state only.
+```
+type: custom:mini-graph-card
+entities:
+  - entity: sensor.xiaomi_cg_1_humidity
+    show_state: true
+    show_graph: false
+  - entity: sensor.xiaomi_cg_1_co2
+    color: green
+    show_state: false
+    name: CO2-1
+  - entity: sensor.xiaomi_cg_2_co2
+    color: orange
+    show_state: false
+    name: CO2-2
+name: Humidity
+hours_to_show: 4
+points_per_hour: 60
+show:
+  name: true
+  legend: true
+  icon: false
+  labels: true
+```
+This method may be also used to add a calculated value with it's own `aggregate_func` option.
 
 
 ## Development
