@@ -279,11 +279,7 @@ class MiniGraphCard extends LitElement {
     if (this.config.show.state === 'last') {
       return this.points[id][this.points[id].length - 1][V];
     } else if (entityConfig.attribute) {
-      if (entityConfig.attribute.includes('.')) {
-        return this.getObjectAttr(this.entity[id].attributes, entityConfig.attribute);
-      } else {
-        return this.entity[id].attributes[entityConfig.attribute];
-      }
+      return this.getObjectAttr(this.entity[id].attributes, entityConfig.attribute);
     } else {
       return this.entity[id].state;
     }
@@ -914,13 +910,9 @@ class MiniGraphCard extends LitElement {
       if (this.config.state_map.length > 0 || this.config.entities[index].attribute) {
         newStateHistory[0].forEach((item) => {
           if (this.config.entities[index].attribute) {
-            if (this.config.entities[index].attribute.includes('.')) {
-              // eslint-disable-next-line no-param-reassign
-              item.state = this.getObjectAttr(item.attributes,
-                this.config.entities[index].attribute);
-            } else
-              // eslint-disable-next-line no-param-reassign
-              item.state = item.attributes[this.config.entities[index].attribute];
+            // eslint-disable-next-line no-param-reassign
+            item.state = this.getObjectAttr(item.attributes,
+              this.config.entities[index].attribute);
             // eslint-disable-next-line no-param-reassign
             delete item.attributes;
           }
